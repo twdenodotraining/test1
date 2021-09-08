@@ -7,7 +7,7 @@ CREATE OR REPLACE WRAPPER JDBC vdb_cache_names
         databasename = 'DATABASENAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
         viewname = 'VIEWNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
         vdbname = 'VDBNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
-        sqlname = 'SQLNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+        sqlname1 = 'SQLNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
     )
     INDEX 'I_8459088494727330354225484635' CLUSTER ( 'DATABASENAME' , 'VIEWNAME' );
 
@@ -15,7 +15,7 @@ CREATE OR REPLACE TABLE vdb_cache_names I18N us_cst (
         databasename:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '255'),
         viewname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '255'),
         vdbname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '255'),
-        sqlname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '30')
+        sqlname1:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '30')
     )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
@@ -25,9 +25,9 @@ CREATE OR REPLACE TABLE vdb_cache_names I18N us_cst (
              ADD databasename (any) OPT ANY
              ADD viewname (any) OPT ANY
              ADD vdbname (any) OPT ANY
-             ADD sqlname (any) OPT ANY
+             ADD sqlname1 (any) OPT ANY
         )
-        OUTPUTLIST (databasename, sqlname, vdbname, viewname
+        OUTPUTLIST (databasename, sqlname1, vdbname, viewname
         )
         WRAPPER (jdbc vdb_cache_names)
     );
