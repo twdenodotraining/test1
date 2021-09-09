@@ -1,0 +1,43 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER CUSTOM dd_customer
+    DATASOURCENAME=dd
+    PARAMETERS (
+      'Collection' = '${databases.primary.views.custom.dd_customer.Collection}'
+    )
+    OUTPUTSCHEMA (
+        _id = '_id' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        address = 'address' : REGISTER OF (
+            street = 'street' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+            zipcode = 'zipcode' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+            building = 'building' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE
+        ),
+        name = 'name' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        customer_id = 'customer_id' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE
+    );
+
+CREATE OR REPLACE TYPE dd_address AS REGISTER OF (street:text (sourcetypeid = '12'), zipcode:text (sourcetypeid = '12'), building:text (sourcetypeid = '12'));
+
+CREATE OR REPLACE TABLE dd_customer I18N us_cst (
+        _id:text (sourcetypeid = '12'),
+        address:dd_address,
+        name:text (sourcetypeid = '12'),
+        customer_id:text (sourcetypeid = '12')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD dd_customer(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD _id (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD customer_id (any) OPT ANY
+             ADD address NOS ZERO ()
+             ADD address.street (any) OPT ANY
+             ADD address.zipcode (any) OPT ANY
+             ADD address.building (any) OPT ANY
+        )
+        OUTPUTLIST (_id, address, customer_id, name
+        )
+        WRAPPER (custom dd_customer)
+    );
+

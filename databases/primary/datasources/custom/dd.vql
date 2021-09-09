@@ -1,0 +1,12 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE CUSTOM dd
+    CLASSNAME='com.denodo.connect.mongodb.wrapper.MongoDBWrapper'
+    JARS 'denodo-mongodb-customwrapper'
+    PARAMETERS (
+      'Host' = '${databases.primary.datasources.custom.dd.Host}',
+      'Port' = ${databases.primary.datasources.custom.dd.Port},
+      'Pass-through session credentials' = false,
+      'Database' = '${databases.primary.datasources.custom.dd.Database}',
+      'Use SSL/TLS' = ${databases.primary.datasources.custom.dd.Use SSL/TLS}
+    );
+
